@@ -1,7 +1,7 @@
 var CKI = CKI || {};
 
 CKI.enabledImporters = {
-	"Default CSV": CKI.Importers.default
+	"Default CSV": CKI.Importers.default,
 	"Fidelity Consolidated 1099 CSV": CKI.Importers.fidelity,
 	"Bitcoin.tax": CKI.Importers.bitcoinTax,
 	"Cointracking.info CSV": CKI.Importers.coinTrackingInfo,
