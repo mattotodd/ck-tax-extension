@@ -36,6 +36,7 @@ The Gain/Loss does not update sometimes. This column is calculated on the page b
 
 * Fidelity Consolidated 1099
 * [CoinTracking.info](https://cointracking.info/tax/)
+* [Bitcoin.tax](https://bitcoin.tax/home#reports)
 
 ## Default CSV Formatting
 
@@ -52,7 +53,7 @@ The default importer is looking for the following headers in row 1.
 | **costBasis** | 0.00 |
 
 
-Example csv:
+Example default csv:
 ```
 holdingType,reportingCategory,description,dateAcquired,dateSold,salesPrice,costBasis
 long,1,Some Stock,12/02/2007,03/04/2017,1234.50,325.55
@@ -63,3 +64,57 @@ short,2,Some Fund,10/15/2016,03/04/2017,5500.55,5000.00
 ## License
 
 [MIT License](LICENSE)
+
+## Contributing
+
+Pull Requests are encouraged.
+
+Importers can be added by adding a module with the following properties:
+
+**textToLines(csvText)** - function (optional) - function that takes the text of csv file as a param, and returns an array of the rows. If this function is not provided, the default behavior is the first row of the csv is used as header properties, and returns an array of objects with named properties.
+
+**parseCsvRow(csvRow)** - function (required) - function that takes an element of the array returned from `textToLines` as a param, and returns an object with the following properties:
+
+```javascript
+{
+    holdingType: "2",  // 1 for short, 2 for long
+    reportingCategory: "3", // 1 for 1099 was reported, 2 for 1099 was not reported, 3 for no 1099
+    description: "Sold this security",
+    dateAcquired: "5/25/2016", // format mm/dd/yyyy
+    dateSold: "5/25/2017", // format mm/dd/yyyy
+    salesPrice: 5500.50,
+    costBasis: 2500.00
+}
+```
+
+
+Minimal example Importer:
+
+```javascript
+var CKI = CKI || {};
+CKI.Importers = CKI.Importers || {};
+
+CKI.Importers.exampleImporter = {
+	constants: {
+		TYPE_COLUMN: "Gains Type",
+		DESCRIPTION: "Description",
+		ACQUIRED_COLUMN: "Date Acquired",
+		SOLD_COLUMN: "Date Sold",
+		COST_BASIS_COLUMN: "Cost Basis",
+		PROCEEDS_COLUMN: "Proceeds"
+	},
+
+	parseCsvRow: function(sourceObj) {
+		var obj = {
+			holdingType: (sourceObj[this.constants.TYPE_COLUMN] == 'long')  ? "2" : "1",
+			reportingCategory: "3",
+			description: "Sold " + sourceObj[this.constants.DESCRIPTION],
+			dateAcquired: (sourceObj[this.constants.ACQUIRED_COLUMN]) ? sourceObj[this.constants.ACQUIRED_COLUMN] : 'Various',
+			dateSold: (sourceObj[this.constants.SOLD_COLUMN]) ? sourceObj[this.constants.SOLD_COLUMN] : 'Various',
+			salesPrice: parseFloat(sourceObj[this.constants.PROCEEDS_COLUMN]),
+			costBasis: parseFloat(sourceObj[this.constants.COST_BASIS_COLUMN])
+		}
+		return obj;
+	}
+};
+```

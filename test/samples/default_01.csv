@@ -1,0 +1,3 @@
+holdingType,reportingCategory,description,dateAcquired,dateSold,salesPrice,costBasis
+long,1,Some Stock,12/02/2007,03/04/2017,1234.50,325.55
+short,2,Some Fund,10/15/2016,03/04/2017,5500.55,5000.00

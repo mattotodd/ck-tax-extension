@@ -9,6 +9,7 @@
       "matches": ["https://tax.creditkarma.com/taxes/CapitalGainsFullListSummary.action"],
       "js": [
         "importers/default.js",
+        "importers/bitcoinTax.js",
         "importers/cointrackingInfo.js",
         "importers/fidelity.js",
         "CapitalGainsImporter.js"
