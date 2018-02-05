@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "CreditKarma Tax 1099-B CapGains Import",
   "description": "Extends the CreditKarma interface to allow CSV file imports of 1099-B infomation.",
-  "version": "1.0",
+  "version": "1.1",
   "permissions": ["tabs", "https://tax.creditkarma.com/taxes"],
   "content_scripts": [
     {
