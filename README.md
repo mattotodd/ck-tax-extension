@@ -30,8 +30,6 @@ It it the users responsibility to review all imports to make sure they are corre
 
 ## Known Issues
 
-The Gain/Loss column does not update sometimes (color and/or value). This column is calculated on the page based on price and cost basis,  clicking the green  "Next" button will save/refresh those numbers.
-
 Does not import Adjustments
 
 ## Import Sources/Formatting

@@ -137,6 +137,7 @@ CKI.inputRowData = function(dataSource, row) {
 		CKI.getNextEmptyRow().then(function(rowResp) {
 			var element = rowResp.element;
 			var formIndex = rowResp.formIndex;
+			var rowIndex = rowResp.rowIndex;
 
 			var ht = element.querySelector('[name="capitalGains['+formIndex+'].holdingType"]');
 			ht.value = data.holdingType;
@@ -167,6 +168,8 @@ CKI.inputRowData = function(dataSource, row) {
 			sp.dispatchEvent(evt);
 			c.blur();
 
+			CKI.updateRowGainLoss(rowIndex);
+
 			CKI.currentIndex++;
 			resolve();
 		});
@@ -181,7 +184,64 @@ CKI.sourceRowToCKData = function(dataSource, sourceObj) {
 	alert("Importer not found for: " + dataSource);
 }
 
+CKI.updateRowGainLoss = function(index){
+	var row = $("#row" + index);
 
+	var salesPrice = CKI.convertDollarAmount($(row).find(".salesPrice").val());
+	var cost = CKI.convertDollarAmount($(row).find(".cost").val());
+	var adjustment = CKI.convertDollarAmount($(row).find(".adjustmentAmount").val());
+	var gainLoss = parseFloat(salesPrice - cost + adjustment);
+	var gainLossClass = "";
+	if(gainLoss > 0){
+	    gainLossClass = "gain";
+	}else if(gainLoss < 0){
+	    gainLossClass = "loss";
+	}
+	$(row).find(".gainLoss").html(gainLoss.toFixed(2)).removeClass("gain loss").addClass(gainLossClass);
+	CKI.updateTotalRow();
+}
+
+
+CKI.updateTotalRow = function(){
+    var rowCount = CKI.getRowCount();
+    var salesPriceTotal = 0.0;
+    var costTotal = 0.0;
+    var adjustmentTotal = 0.0;
+    for(var i = 0; i < rowCount; i++){
+        var row = $("#row" + i);
+        var salesPrice = CKI.convertDollarAmount($(row).find(".salesPrice").val());
+        var cost = CKI.convertDollarAmount($(row).find(".cost").val());
+        var adjustment = CKI.convertDollarAmount($(row).find(".adjustmentAmount").val());
+
+        salesPriceTotal += salesPrice;
+        costTotal += cost;
+        adjustmentTotal += adjustment;
+    }
+    var gainLossTotal = parseFloat(salesPriceTotal) - parseFloat(costTotal) + parseFloat(adjustmentTotal);
+    $("#salesPriceTotal").html(salesPriceTotal.toFixed(2));
+    $("#costTotal").html(costTotal.toFixed(2));
+    $("#adjustmentTotal").html(adjustmentTotal.toFixed(2));
+
+    var gainLossClass = "";
+    if(gainLossTotal > 0){
+        gainLossClass = "gain";
+    }else if(gainLossTotal < 0){
+        gainLossClass = "loss";
+    }
+
+    $("#gainLossTotal").html(gainLossTotal.toFixed(2)).removeClass("gain loss").addClass(gainLossClass);
+}
+
+CKI.convertDollarAmount = function(value){
+    if(value == null || value == '' || value == 'null'){
+        value = '0.00';
+    }
+    return parseFloat(value.replace(/,/g,''));
+}
+
+CKI.getRowCount = function(){
+    return $(".row").length;
+}
 
 CKI.getNextEmptyRow = function() {
 	return new Promise(function(resolve, reject) {
@@ -210,7 +270,7 @@ CKI.getNextEmptyRow = function() {
 
 		}
 
-		return resolve({ element: element, formIndex: formIndex});
+		return resolve({ element: element, formIndex: formIndex, rowIndex: CKI.currentIndex});
 	});
 }
 
