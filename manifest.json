@@ -13,6 +13,7 @@
         "importers/bitcoinTax.js",
         "importers/cointrackingInfo.js",
         "importers/fidelity.js",
+        "importers/betterment.js",
         "CapitalGainsImporter.js"
       ]
     }

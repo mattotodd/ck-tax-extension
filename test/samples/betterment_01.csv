@@ -1,0 +1,4 @@
+Account,Description,Symbol,CUSIP,Date Acquired,Date Sold,Gross Proceeds,Cost or Other Basis,Gain/(Loss),Wash Sale Loss Disallowed,Federal Income Tax Withheld,Type of Gain(Loss),Noncovered Securities,Reporting Category,
+Joint Taxable Account,0.000453 sh. iShares Short-Term Treasury Bond ETF Class O,SHV,464288679,06/30/2016,03/31/2017,$0.05,$0.05,$0.00,$0.00,$0.00,Short-term,No,A
+Joint Taxable Account,0.205645 sh. Vanguard Total International Bond ETF Class O,BNDX,92203J407,08/11/2016,06/05/2017,$11.22,$11.56,$-0.34,$0.34,$0.00,Short-term,No,A
+Joint Taxable Account,0.068359 sh. Vanguard FTSE Emerging Markets Class O,VWO,922042858,08/18/2016,12/29/2017,$3.15,$2.63,$0.52,$0.00,$0.00,Long-term,No,D

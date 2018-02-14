@@ -5,6 +5,7 @@ CKI.enabledImporters = {
 	"Fidelity Consolidated 1099 CSV": CKI.Importers.fidelity,
 	"Bitcoin.tax": CKI.Importers.bitcoinTax,
 	"Cointracking.info CSV": CKI.Importers.coinTrackingInfo,
+	"Betterment CSV": CKI.Importers.betterment,
 };
 
 CKI.init = function(evt) {
@@ -167,6 +168,16 @@ CKI.inputRowData = function(dataSource, row) {
 			c.value = data.costBasis;
 			sp.dispatchEvent(evt);
 			c.blur();
+
+			if (data.adjustmentAmount){
+				var adjValue = element.querySelector('[name="capitalGains['+formIndex+'].adjustmentAmount"]');
+				adjValue.value = data.adjustmentAmount;
+			}
+
+			if (data.adjustmentCode) {
+				var adjCode = element.querySelector('[name="capitalGains['+formIndex+'].adjustmentCode"]');
+				adjCode.value = data.adjustmentCode;
+			}
 
 			CKI.updateRowGainLoss(rowIndex);
 
