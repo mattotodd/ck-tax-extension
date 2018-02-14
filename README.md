@@ -39,6 +39,7 @@ Does not import Adjustments
 * [Fidelity](https://www.fidelity.com/) - Consolidated 1099 CSV
 * [CoinTracking.info](https://cointracking.info/tax/) - Tax CSV Export
 * [Bitcoin.tax](https://bitcoin.tax/home#reports) - Tax CSV Export
+* [Betterment](https://wwws.betterment.com/app/activity_tax_forms) - Tax CSV Export
 
 ### Default CSV Formatting
 

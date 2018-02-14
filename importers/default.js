@@ -7,10 +7,16 @@ CKI.Importers.default = {
         var allTextLines = allText.split(/\r\n|\n/);
         var headers = allTextLines[0].split(',');
         for (var j=0; j<headers.length; j++) {
-        	// string quotes from string
+        	// strip quotes from string
         	var cleanData = headers[j].replace(/['"]+/g, '').trim()
             headers[j] = cleanData;
         }
+        
+        // if last header is empty, remove it
+        if (headers.length > 0 && headers[headers.length-1] === "") {
+            headers.pop();
+        }
+
         var lines = [];
 
         for (var i=1; i<allTextLines.length; i++) {
