@@ -36,7 +36,6 @@ CKI.Importers.default = {
 
     parseCsvRow: function(sourceObj) {
     	return {
-            holdingType: (sourceObj["holdingType"].toLowerCase() === "long") ? "2" : "1",
             reportingCategory: sourceObj["reportingCategory"],
             description: sourceObj['description'],
             dateAcquired: sourceObj["dateAcquired"],

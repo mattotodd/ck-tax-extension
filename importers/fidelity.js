@@ -66,9 +66,11 @@ CKI.Importers.fidelity = {
 	},
 
 	parseCsvRow: function(sourceObj) {
+		var longTerm = sourceObj[this.constants.SHORT_LONG_COLUMN].trim() === this.constants.LONG;
+		var wasReported = sourceObj[this.constants.REPORTING_COLUMN].trim() === this.constants.WAS_REPORTED
+
 		var obj = {
-			holdingType: (sourceObj[this.constants.SHORT_LONG_COLUMN].trim() === this.constants.LONG) ? "2" : "1",
-			reportingCategory: (sourceObj[this.constants.REPORTING_COLUMN].trim() === this.constants.WAS_REPORTED) ? "1" : "2",
+			reportingCategory: longTerm ? (wasReported ? "4" : "5") : (wasReported ? "1" : "2"),
 			description: sourceObj[this.constants.DESCRIPTION_COLUMN],
 			dateAcquired: (sourceObj[this.constants.ACQUIRED_COLUMN]) ? this._formateDate(sourceObj[this.constants.ACQUIRED_COLUMN]) : 'Various',
 			dateSold: (sourceObj[this.constants.SOLD_COLUMN]) ? this._formateDate(sourceObj[this.constants.SOLD_COLUMN]) : 'Various',

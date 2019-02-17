@@ -22,9 +22,10 @@ CKI.Importers.bitcoinTax = {
         var soldDate = new Date(soldParts[2], soldParts[1], soldParts[0]);
         var acquiredDate = new Date(acquiredParts[2], acquiredParts[1], acquiredParts[0]);
 
+        var longTerm = (this._daysApart(soldDate, acquiredDate) > 365);
+
         var obj = {
-            holdingType: (this._daysApart(soldDate, acquiredDate) > 365)  ? "2" : "1",
-            reportingCategory: "3",
+            reportingCategory: longTerm ? "6" : "3",
             description: "Sold " + sourceObj[this.constants.SYMBOL_COLUMN],
             dateAcquired: (sourceObj[this.constants.ACQUIRED_COLUMN]) ? sourceObj[this.constants.ACQUIRED_COLUMN] : 'Various',
             dateSold: (sourceObj[this.constants.SOLD_COLUMN]) ? sourceObj[this.constants.SOLD_COLUMN] : 'Various',

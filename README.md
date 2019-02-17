@@ -80,7 +80,8 @@ Importers are modules with the following properties:
 ```javascript
 {
     holdingType: "2",  // 1 for short, 2 for long
-    reportingCategory: "3", // 1 for 1099 was reported, 2 for 1099 was not reported, 3 for no 1099
+    reportingCategory: "3", // Short term: 1 for 1099 was reported, 2 for 1099 was not reported, 3 for no 1099
+                            // Long term: 4 for 1099 was reported, 5 for 1099 was not reported, 6 for no 1099
     description: "Sold this security",
     dateAcquired: "5/25/2016", // format mm/dd/yyyy
     dateSold: "5/25/2017", // format mm/dd/yyyy

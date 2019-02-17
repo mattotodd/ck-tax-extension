@@ -40,8 +40,7 @@ CKI.Importers.coinTrackingInfo = {
 		var rPattern = '$2/$1/$3';
 
 		return {
-			holdingType: (sourceObj["Short/Long"] === "Long") ? "2" : "1",
-			reportingCategory: "3",
+			reportingCategory: (sourceObj["Short/Long"] === "Long") ? "6" : "3",
 			description: 'Sold ' + sourceObj['Currency'] + ' on ' + sourceObj['Sell /Output at'],
 			dateAcquired: sourceObj["Date Acquired"].replace(pattern, rPattern),
 			dateSold: sourceObj["Date Sold"].replace(pattern, rPattern),
