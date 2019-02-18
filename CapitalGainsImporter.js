@@ -36,8 +36,22 @@ CKI.render = function(evt) {
 	aNode.style.float = "right";
 	aNode.innerHTML = "Clear all entries";
 	aNode.onclick = function() {
-			var el = document.getElementById('capitalGainsTable');
-			el.remove();
+		var rows = document.getElementById('capitalGainsTable')
+			.querySelectorAll('tr.row');
+
+		for(var i = 10; i < rows.length; i++) {
+			rows[i].remove();
+		}
+
+		for(var i = 0; i < 10; i++) {
+			CKI.applyDataToRow({}, {
+				element: rows[i],
+				formIndex: i,
+				rowIndex: CKI.getRowIndex(rows[i])
+			})
+		}
+
+		CKI.currentIndex = 0;
 	};
 	CKI.wrapperEl.appendChild(aNode);
 }
@@ -135,42 +149,46 @@ CKI.inputRowData = function(dataSource, row) {
 		}
 
 		CKI.getNextEmptyRow().then(function(rowResp) {
-			var element = rowResp.element;
-			var formIndex = rowResp.formIndex;
-			var rowIndex = rowResp.rowIndex;
-
-			var rc = element.querySelector('[name="capitalGains['+formIndex+'].reportingCategory"]');
-			rc.value = data.reportingCategory;
-
-			var desc = element.querySelector('[name="capitalGains['+formIndex+'].description"]');
-			desc.value = data.description;
-
-			var da = element.querySelector('[name="capitalGains['+formIndex+'].dateAcquired"]');
-			da.value = data.dateAcquired;
-
-			var ds = element.querySelector('[name="capitalGains['+formIndex+'].dateSold"]');
-			ds.value = data.dateSold;
-
-			var sp = element.querySelector('[name="capitalGains['+formIndex+'].salesPrice"]');
-			sp.focus();
-			sp.value = data.salesPrice;
-			var evt = document.createEvent("HTMLEvents");
-			evt.initEvent("change", false, true);
-			sp.dispatchEvent(evt);
-			sp.blur();
-
-			var c = element.querySelector('[name="capitalGains['+formIndex+'].cost"]');
-			c.focus();
-			c.value = data.costBasis;
-			sp.dispatchEvent(evt);
-			c.blur();
-
-			CKI.updateRowGainLoss(rowIndex);
-
-			CKI.currentIndex++;
+			CKI.applyDataToRow(data, rowResp);
 			resolve();
 		});
 	});
+}
+
+CKI.applyDataToRow = function(data, rowResp) {
+	var element = rowResp.element;
+	var formIndex = rowResp.formIndex;
+	var rowIndex = rowResp.rowIndex;
+
+	var rc = element.querySelector('[name="capitalGains['+formIndex+'].reportingCategory"]');
+	rc.value = data.reportingCategory;
+
+	var desc = element.querySelector('[name="capitalGains['+formIndex+'].description"]');
+	desc.value = data.description || '';
+
+	var da = element.querySelector('[name="capitalGains['+formIndex+'].dateAcquired"]');
+	da.value = data.dateAcquired || '';
+
+	var ds = element.querySelector('[name="capitalGains['+formIndex+'].dateSold"]');
+	ds.value = data.dateSold || '';
+
+	var sp = element.querySelector('[name="capitalGains['+formIndex+'].salesPrice"]');
+	sp.focus();
+	sp.value = data.salesPrice || 0.00;
+	var evt = document.createEvent("HTMLEvents");
+	evt.initEvent("change", false, true);
+	sp.dispatchEvent(evt);
+	sp.blur();
+
+	var c = element.querySelector('[name="capitalGains['+formIndex+'].cost"]');
+	c.focus();
+	c.value = data.costBasis || 0.00;
+	sp.dispatchEvent(evt);
+	c.blur();
+
+	CKI.updateRowGainLoss(rowIndex);
+
+	CKI.currentIndex++;
 }
 
 CKI.sourceRowToCKData = function(dataSource, sourceObj) {
@@ -238,6 +256,11 @@ CKI.convertDollarAmount = function(value){
 
 CKI.getRowCount = function(){
     return $(".row").length;
+}
+
+CKI.getRowIndex = function(row) {
+	var match = /row(\d+)/.exec(row.id);
+	return parseInt(match[1]);
 }
 
 CKI.getNextEmptyRow = function() {
