@@ -139,11 +139,14 @@ CKI.inputRowData = function(dataSource, row) {
 			var formIndex = rowResp.formIndex;
 			var rowIndex = rowResp.rowIndex;
 
-			var ht = element.querySelector('[name="capitalGains['+formIndex+'].holdingType"]');
-			ht.value = data.holdingType;
-
-			var rc = element.querySelector('[name="capitalGains['+formIndex+'].reported"]');
+			var rc = element.querySelector('[name="capitalGains['+formIndex+'].reportingCategory"]');
 			rc.value = data.reportingCategory;
+
+			var ac= element.querySelector('[name="capitalGains['+formIndex+'].adjustmentCode"]');
+			ac.value = data.adjustmentCode;
+
+			var am= element.querySelector('[name="capitalGains['+formIndex+'].adjustmentAmount"]');
+			am.value = data.adjustmentAmount;
 
 			var desc = element.querySelector('[name="capitalGains['+formIndex+'].description"]');
 			desc.value = data.description;
