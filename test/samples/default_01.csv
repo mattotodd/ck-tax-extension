@@ -1,3 +1,7 @@
-holdingType,reportingCategory,description,dateAcquired,dateSold,salesPrice,costBasis
-long,1,Some Stock,12/02/2007,03/04/2017,1234.50,325.55
-short,2,Some Fund,10/15/2016,03/04/2017,5500.55,5000.00
+belongsTo,reportingCategory,description,dateAcquired,dateSold,salesPrice,costBasis,adjustmentCode,adjustmentAmount
+tp,1,Some Stock,12/02/2007,03/04/2017,1234.50,325.55,,0.00
+sp,2,Some Fund,10/15/2016,03/04/2017,5500.55,5000.00,D,10.00
+bt,3,Some Fund,10/15/2016,03/04/2017,5500.55,5000.00,W,200.25
+tp,4,Some Stock,12/02/2007,03/04/2017,1234.50,325.55,,0.00
+sp,5,Some Fund,10/15/2016,03/04/2017,5500.55,5000.00,B,100.00
+bt,6,Some Fund,10/15/2016,03/04/2017,5500.55,5000.00,T,500.80
