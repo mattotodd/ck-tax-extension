@@ -139,10 +139,10 @@ CKI.inputRowData = function(dataSource, row) {
 			var formIndex = rowResp.formIndex;
 			var rowIndex = rowResp.rowIndex;
 
-			var ht = element.querySelector('[name="capitalGains['+formIndex+'].holdingType"]');
-			ht.value = data.holdingType;
+			var bt = element.querySelector('[name="capitalGains['+formIndex+'].belongsTo"]');
+			bt.value = data.belongsTo;
 
-			var rc = element.querySelector('[name="capitalGains['+formIndex+'].reported"]');
+			var rc = element.querySelector('[name="capitalGains['+formIndex+'].reportingCategory"]');
 			rc.value = data.reportingCategory;
 
 			var desc = element.querySelector('[name="capitalGains['+formIndex+'].description"]');
@@ -167,6 +167,15 @@ CKI.inputRowData = function(dataSource, row) {
 			c.value = data.costBasis;
 			sp.dispatchEvent(evt);
 			c.blur();
+
+			var ac = element.querySelector('[name="capitalGains['+formIndex+'].adjustmentCode"]');
+			ac.value = data.adjustmentCode;
+
+			var aa = element.querySelector('[name="capitalGains['+formIndex+'].adjustmentAmount"]');
+			aa.focus();
+			aa.value = data.adjustmentAmount;
+			aa.dispatchEvent(evt);
+			aa.blur();
 
 			CKI.updateRowGainLoss(rowIndex);
 
