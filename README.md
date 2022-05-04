@@ -22,7 +22,7 @@ The import will not overwrite any rows on CreditKarma that already have a descri
 
 If Gain/Loss does not update, clicking "Next" will save/refresh those numbers.
 
-You can clear the whole table by selecting "Clear all entries" and then click the green "Next" button. 
+You can clear the whole table by selecting "Clear all entries" and then click the green "Next" button.
 
 This extension and software is not developed or affiliated with CreditKarma.com.
 
@@ -44,15 +44,16 @@ Does not import Adjustments
 
 The default importer is looking for the following headers in row 1.
 
-| Header Name     | Values          | 
+| Header Name     | Values          |
 | -------------   |---------------|
-| **holdingType** | long or short |
-| **reportingCategory** | 1 = 1099 was reported, 2 = 1099 not reported, 3 = no 1099 |
+| **reportingCategory** | short: 1 = 1099 was reported, 2 = 1099 not reported, 3 = no 1099 long: 4 = 1099 was reported, 5 = 1099 not reported, 6 = no 1099 |
 | **description** | description of sale |
 | **dateAcquired** | mm/dd/yyyy |
 | **dateSold** | mm/dd/yyyy |
 | **salesPrice** | 0.00 |
 | **costBasis** | 0.00 |
+| **adjustmentCode** | code |
+| **adjustmentAmount** | 0.00 |
 
 
 Example default csv:
